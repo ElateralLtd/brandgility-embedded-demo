@@ -1,0 +1,21 @@
+# Build
+/dist
+
+# Temp folder for deploy
+.deploy
+
+# Environment variables
+.env
+
+# IDEs
+/.idea
+/.vscode
+
+# Dependency directories
+/node_modules
+
+# macOS
+*.DS_Store
+
+# Linters cache
+.eslintcache
