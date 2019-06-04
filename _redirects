@@ -1,0 +1,5 @@
+# for single page app return index.html instead of any 404s
+# for more info see https://www.netlify.com/docs/redirects
+# section: history pushstate and single page apps
+
+/*            /index.html           200
