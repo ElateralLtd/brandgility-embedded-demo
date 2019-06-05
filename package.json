@@ -5,7 +5,8 @@
   "repository": "https://github.com/ElateralLtd/brandgility-embedded-demo.git",
   "scripts": {
     "start": "webpack-dev-server --progress --env.development",
-    "build": "webpack --env.production"
+    "build": "webpack --env.production",
+    "deploy": "bin/package.sh"
   },
   "moduleRoots": [
     "src"
