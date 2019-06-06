@@ -1,0 +1,63 @@
+job-defaults: &job-defaults
+  docker:
+    - image: circleci/node:12.1.0
+
+version: 2
+jobs:
+  prepare:
+    <<: *job-defaults
+    steps:
+      - checkout
+      - restore_cache:
+          key: dependency-cache-{{ checksum "yarn.lock" }}
+      - run:
+          name: Install packages
+          command: yarn --pure-lockfile --no-progress
+      - save_cache:
+          key: dependency-cache-{{ checksum "yarn.lock" }}
+          paths:
+            - ~/.cache/yarn
+      - run:
+          name: Prepare .env
+          command: |
+            echo NODE_ENV=production >> .env
+            echo BRANDGILITY_URL=n/a >> .env
+      - persist_to_workspace:
+          root: .
+          paths:
+            - ./*
+  build:
+    <<: *job-defaults
+    steps:
+       - attach_workspace:
+           at: .
+       - run:
+           name: Build
+           command: yarn run build
+       - persist_to_workspace:
+           root: .
+           paths:
+            - dist/*
+  deploy:
+    <<: *job-defaults
+    steps:
+      - attach_workspace:
+          at: .
+      - deploy:
+          command: yarn run deploy
+
+workflows:
+  version: 2
+
+  build-and-deploy:
+    jobs:
+      - prepare:
+          context: org-global
+      - build:
+          context: org-global
+          requires:
+            - prepare
+      - deploy:
+          context: org-global
+          requires:
+            - build
