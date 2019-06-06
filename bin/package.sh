@@ -59,7 +59,7 @@ echo "*************************************"
 echo "Uploading package to Azure Storage"
 echo "*************************************"
 echo "file ${FILE_LOC}"
-: 'node ${UPLOADER_SCRIPT} --file=${FILE_LOC} --module=${MODULE_NAME}'
+node ${UPLOADER_SCRIPT} --file=${FILE_LOC} --module=${MODULE_NAME}
 
 containsElement "$CIRCLE_BRANCH" "${BRANCHES[@]}"
 if [ "$?" == 0 ]; then
