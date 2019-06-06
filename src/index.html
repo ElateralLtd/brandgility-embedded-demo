@@ -5,8 +5,54 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <style>
+      html, body, #root {
+        height: 100%;
+        margin: 0;
+      }
+
+      .root {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+      }
+
+      .controls {
+        display: flex;
+        padding: 14px;
+        padding-bottom: 0;
+        align-items: center;
+      }
+
+      .control {
+        margin-right: 10px;
+      }
+
+      .brandgility-iframe-wrapper {
+        display: flex;
+        flex-grow: 1;
+        padding: 14px;
+      }
+
+      .brandgility-iframe {
+        flex-grow: 1;
+        border: none;
+      }
+    </style>
   </head>
   <body>
-    <div id="root"></div>
+    <div class="root">
+      <div class="controls">
+        <input type="text" class="control templateId" placeholder="template id">
+        <button type="button" class="control openTemplate">Open Template</button>
+        <input type="text" class="control savedItemId" placeholder="saved item id">
+        <button type="button" class="control openSavedItem">Open Saved Item</button>
+        <button type="button" class="control saveButton">Save</button>
+        <div>
+        <div>Current configuration id: <strong class="loadedTemplateId"></strong></div>
+          <div>Entity Type: <strong class="loadedEntityType"></strong></div>
+        </div>
+      </div>
+      <div class="brandgility-iframe-wrapper"></div>
   </body>
 </html>

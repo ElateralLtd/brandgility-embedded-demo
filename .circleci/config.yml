@@ -21,7 +21,6 @@ jobs:
           name: Prepare .env
           command: |
             echo NODE_ENV=production >> .env
-            echo BRANDGILITY_URL=n/a >> .env
       - persist_to_workspace:
           root: .
           paths:
