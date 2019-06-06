@@ -1,0 +1,22 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.controls {
+  display: flex;
+  padding: 14px;
+  padding-bottom: 0;
+  align-items: center;
+}
+
+.control {
+  margin-right: 10px;
+}
+
+.brandgility-iframe {
+  flex-grow: 1;
+  border: none;
+  padding: 14px;
+}
