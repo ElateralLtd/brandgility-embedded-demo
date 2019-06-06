@@ -11,20 +11,20 @@ const app = {
       .on('load', this.handleLoad)
       .on('save', (id) => console.info('saved item id', id));
 
-    this.listenToClicks();
+    this.attachListeners();
   },
 
-  listenToClicks() {
-    document.querySelector('.openSavedItem').addEventListener('click', this.handleOpenSavedItem.bind(this));
-    document.querySelector('.openTemplate').addEventListener('click', this.handleOpenTemplate.bind(this));
-    document.querySelector('.saveButton').addEventListener('click', this.handleSave.bind(this));
+  attachListeners() {
+    document.querySelector('.open-saved-item-button').addEventListener('click', this.handleOpenSavedItem.bind(this));
+    document.querySelector('.open-template-button').addEventListener('click', this.handleOpenTemplate.bind(this));
+    document.querySelector('.save-button').addEventListener('click', this.handleSave.bind(this));
   },
 
   handleLoad({ id, type }) {
-    document.querySelector('.loadedTemplateId').textContent = id;
-    document.querySelector('.loadedEntityType').textContent = type;
+    document.querySelector('.loaded-template-id').textContent = id;
+    document.querySelector('.loaded-entity-type').textContent = type;
 
-    [...document.querySelectorAll('.control')].forEach((control) => {
+    document.querySelectorAll('.control').forEach((control) => {
       control.removeAttribute('disabled');
     });
   },
@@ -34,14 +34,14 @@ const app = {
   },
 
   handleOpenTemplate() {
-    const templateId = document.querySelector('.templateId').value.trim();
+    const templateId = document.querySelector('.template-id').value.trim();
     const url = `${env.brandgilityUrl}/embedded-template-configure/new/${templateId}`;
 
     this.openIframe(url);
   },
 
   handleOpenSavedItem() {
-    const savedItemId = document.querySelector('.savedItemId').value.trim();
+    const savedItemId = document.querySelector('.saved-item-id').value.trim();
     const url = `${env.brandgilityUrl}/embedded-template-configure/edit/${savedItemId}`;
 
     this.openIframe(url);
@@ -56,12 +56,12 @@ const app = {
   },
 
   clearInfo() {
-    document.querySelector('.loadedTemplateId').textContent = '';
-    document.querySelector('.loadedEntityType').textContent = '';
-    document.querySelector('.savedItemId').value = '';
-    document.querySelector('.templateId').value = '';
+    document.querySelector('.loaded-template-id').textContent = '';
+    document.querySelector('.loaded-entity-type').textContent = '';
+    document.querySelector('.saved-item-id').value = '';
+    document.querySelector('.template-id').value = '';
 
-    [...document.querySelectorAll('.control')].forEach((control) => {
+    document.querySelectorAll('.control').forEach((control) => {
       control.setAttribute('disabled', 'disabled');
     });
   }

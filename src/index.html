@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <style>
-      html, body, #root {
+      html, body {
         height: 100%;
         margin: 0;
       }
@@ -39,20 +39,20 @@
         border: none;
       }
     </style>
-  </head>
-  <body>
-    <div class="root">
-      <div class="controls">
-        <input type="text" class="control templateId" placeholder="template id">
-        <button type="button" class="control openTemplate">Open Template</button>
-        <input type="text" class="control savedItemId" placeholder="saved item id">
-        <button type="button" class="control openSavedItem">Open Saved Item</button>
-        <button type="button" class="control saveButton">Save</button>
-        <div>
-        <div>Current configuration id: <strong class="loadedTemplateId"></strong></div>
-          <div>Entity Type: <strong class="loadedEntityType"></strong></div>
+    </head>
+    <body>
+      <div class="root">
+        <div class="controls">
+          <input type="text" class="template-id control" placeholder="template id">
+          <button type="button" class="open-template-button control">Open Template</button>
+          <input type="text" class="saved-item-id control" placeholder="saved item id">
+          <button type="button" class="open-saved-item-button control">Open Saved Item</button>
+          <button type="button" class="save-button control">Save</button>
+          <div>
+            <div>Current configuration id: <strong class="loaded-template-id"></strong></div>
+            <div>Entity Type: <strong class="loaded-entity-type"></strong></div>
+          </div>
         </div>
-      </div>
-      <div class="brandgility-iframe-wrapper"></div>
-  </body>
+        <div class="brandgility-iframe-wrapper"></div>
+    </body>
 </html>
