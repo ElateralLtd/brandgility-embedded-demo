@@ -5,8 +5,59 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <style>
+      html, body {
+        height: 100%;
+        margin: 0;
+      }
+
+      .root {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+      }
+
+      .controls {
+        display: flex;
+        padding: 14px;
+        padding-bottom: 0;
+        align-items: center;
+      }
+
+      .controls__template-id-input,
+      .controls__open-template-button,
+      .controls__saved-item-id-input,
+      .controls__open-saved-item-button,
+      .controls__save-button {
+        margin-right: 10px;
+      }
+
+      .brandgility-iframe-wrapper {
+        display: flex;
+        flex-grow: 1;
+        padding: 14px;
+      }
+
+      .brandgility-iframe {
+        flex-grow: 1;
+        border: none;
+      }
+    </style>
   </head>
   <body>
-    <div id="root"></div>
+    <div class="root">
+      <div class="controls">
+        <input type="text" class="controls__template-id-input" placeholder="template id">
+        <button type="button" class="controls__open-template-button">Open Template</button>
+        <input type="text" class="controls__saved-item-id-input" placeholder="saved item id">
+        <button type="button" class="controls__open-saved-item-button">Open Saved Item</button>
+        <button type="button" class="controls__save-button">Save</button>
+        <div>
+          <div>Current configuration id: <strong class="controls__loaded-template-id"></strong></div>
+          <div>Entity Type: <strong class="controls__loaded-entity-type"></strong></div>
+        </div>
+      </div>
+      <div class="brandgility-iframe-wrapper"></div>
+    </div>
   </body>
 </html>
