@@ -24,7 +24,11 @@
         align-items: center;
       }
 
-      .control {
+      .controls__template-id-input,
+      .controls__open-template-button,
+      .controls__saved-item-id-input,
+      .controls__open-saved-item-button,
+      .controls__save-button {
         margin-right: 10px;
       }
 
@@ -39,21 +43,21 @@
         border: none;
       }
     </style>
-    </head>
-    <body>
-      <div class="root">
-        <div class="controls">
-          <input type="text" class="template-id control" placeholder="template id">
-          <button type="button" class="open-template-button control">Open Template</button>
-          <input type="text" class="saved-item-id control" placeholder="saved item id">
-          <button type="button" class="open-saved-item-button control">Open Saved Item</button>
-          <button type="button" class="save-button control">Save</button>
-          <div>
-            <div>Current configuration id: <strong class="loaded-template-id"></strong></div>
-            <div>Entity Type: <strong class="loaded-entity-type"></strong></div>
-          </div>
+  </head>
+  <body>
+    <div class="root">
+      <div class="controls">
+        <input type="text" class="controls__template-id-input" placeholder="template id">
+        <button type="button" class="controls__open-template-button">Open Template</button>
+        <input type="text" class="controls__saved-item-id-input" placeholder="saved item id">
+        <button type="button" class="controls__open-saved-item-button">Open Saved Item</button>
+        <button type="button" class="controls__save-button">Save</button>
+        <div>
+          <div>Current configuration id: <strong class="controls__loaded-template-id"></strong></div>
+          <div>Entity Type: <strong class="controls__loaded-entity-type"></strong></div>
         </div>
-        <div class="brandgility-iframe-wrapper"></div>
       </div>
-    </body>
+      <div class="brandgility-iframe-wrapper"></div>
+    </div>
+  </body>
 </html>

@@ -15,18 +15,22 @@ const app = {
   },
 
   attachListeners() {
-    document.querySelector('.open-saved-item-button').addEventListener('click', this.handleOpenSavedItem.bind(this));
-    document.querySelector('.open-template-button').addEventListener('click', this.handleOpenTemplate.bind(this));
-    document.querySelector('.save-button').addEventListener('click', this.handleSave.bind(this));
+    document.querySelector('.controls__open-saved-item-button').addEventListener('click', this.handleOpenSavedItem.bind(this));
+    document.querySelector('.controls__open-template-button').addEventListener('click', this.handleOpenTemplate.bind(this));
+    document.querySelector('.controls__save-button').addEventListener('click', this.handleSave.bind(this));
   },
 
   handleLoad({ id, type }) {
-    document.querySelector('.loaded-template-id').textContent = id;
-    document.querySelector('.loaded-entity-type').textContent = type;
+    document.querySelector('.controls__loaded-template-id').textContent = id;
+    document.querySelector('.controls__loaded-entity-type').textContent = type;
 
-    document.querySelectorAll('.control').forEach((control) => {
-      control.removeAttribute('disabled');
-    });
+    document.querySelectorAll(`
+      .controls__template-id-input,
+      .controls__open-template-button,
+      .controls__saved-item-id-input,
+      .controls__open-saved-item-button,
+      .controls__save-button
+    `).forEach((control) => control.removeAttribute('disabled'));
   },
 
   handleSave() {
@@ -34,14 +38,14 @@ const app = {
   },
 
   handleOpenTemplate() {
-    const templateId = document.querySelector('.template-id').value.trim();
+    const templateId = document.querySelector('.controls__template-id-input').value.trim();
     const url = `${env.brandgilityUrl}/embedded-template-configure/new/${templateId}`;
 
     this.openIframe(url);
   },
 
   handleOpenSavedItem() {
-    const savedItemId = document.querySelector('.saved-item-id').value.trim();
+    const savedItemId = document.querySelector('.controls__saved-item-id-input').value.trim();
     const url = `${env.brandgilityUrl}/embedded-template-configure/edit/${savedItemId}`;
 
     this.openIframe(url);
@@ -50,20 +54,24 @@ const app = {
   openIframe(iframeUrl) {
     this.clearInfo();
 
-    document.querySelector('.brandgility-iframe-wrapper').innerHTML=`
+    document.querySelector('.brandgility-iframe-wrapper').innerHTML=(`
       <iframe class="brandgility-iframe" title="elateral-embedded-configure" src="${iframeUrl}"></iframe>
-    `;
+    `);
   },
 
   clearInfo() {
-    document.querySelector('.loaded-template-id').textContent = '';
-    document.querySelector('.loaded-entity-type').textContent = '';
-    document.querySelector('.saved-item-id').value = '';
-    document.querySelector('.template-id').value = '';
+    document.querySelector('.controls__loaded-template-id').textContent = '';
+    document.querySelector('.controls__loaded-entity-type').textContent = '';
+    document.querySelector('.controls__saved-item-id-input').value = '';
+    document.querySelector('.controls__template-id-input').value = '';
 
-    document.querySelectorAll('.control').forEach((control) => {
-      control.setAttribute('disabled', 'disabled');
-    });
+    document.querySelectorAll(`
+      .controls__template-id-input,
+      .controls__open-template-button,
+      .controls__saved-item-id-input,
+      .controls__open-saved-item-button,
+      .controls__save-button
+    `).forEach((control) => control.setAttribute('disabled', 'disabled'));
   }
 };
 
