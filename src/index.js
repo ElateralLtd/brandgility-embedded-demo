@@ -52,10 +52,12 @@ const app = {
   },
 
   openIframe(iframeUrl) {
+    const iframe = document.querySelector('.brandgility-iframe');
+
     this.clearInfo();
 
-    document.querySelector('.brandgility-iframe').src = iframeUrl;
-    document.querySelector('.brandgility-iframe').hidden = false;
+    iframe.src = iframeUrl;
+    iframe.hidden = false;
   },
 
   clearInfo() {
