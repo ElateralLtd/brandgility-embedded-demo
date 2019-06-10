@@ -1,7 +1,7 @@
+import BrandgilityEmbeddedApi from '@elateral/brandgility-embedded-api';
+
 import 'core/polyfill';
 import env from 'core/env';
-
-import BrandgilityEmbeddedApi from './brandgility-embedded-api';
 
 const app = {
   init() {
