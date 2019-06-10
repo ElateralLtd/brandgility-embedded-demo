@@ -1,15 +1,15 @@
 import 'core/polyfill';
 import env from 'core/env';
 
-import ClientPostMessageAPI from './client-post-message-api';
+import BrandgilityEmbeddedApi from './brandgility-embedded-api';
 
 const app = {
   init() {
-    this.clientPostMessageAPI = new ClientPostMessageAPI('.brandgility-iframe');
+    const targetWindow = document.querySelector('.brandgility-iframe').contentWindow;
 
-    this.clientPostMessageAPI
-      .on('load', this.handleLoad)
-      .on('save', (id) => console.info('saved item id', id));
+    this.brandgilityEmbeddedApi = new BrandgilityEmbeddedApi(targetWindow);
+    this.brandgilityEmbeddedApi.on('load', this.handleLoad);
+    this.brandgilityEmbeddedApi.on('save', (entity) => console.info('saved item', entity));
 
     this.attachListeners();
   },
@@ -34,7 +34,7 @@ const app = {
   },
 
   handleSave() {
-    this.clientPostMessageAPI.save();
+    this.brandgilityEmbeddedApi.emit('save');
   },
 
   handleOpenTemplate() {
@@ -54,9 +54,8 @@ const app = {
   openIframe(iframeUrl) {
     this.clearInfo();
 
-    document.querySelector('.brandgility-iframe-wrapper').innerHTML=(`
-      <iframe class="brandgility-iframe" title="elateral-embedded-configure" src="${iframeUrl}"></iframe>
-    `);
+    document.querySelector('.brandgility-iframe').src = iframeUrl;
+    document.querySelector('.brandgility-iframe').hidden = false;
   },
 
   clearInfo() {
