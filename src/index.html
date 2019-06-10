@@ -58,7 +58,12 @@
         -ms-user-select: none;
         user-select: none;
         outline: none;
-        -webkit-appearance: button;
+      }
+
+      input:disabled,
+      button:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
       }
 
       .root {

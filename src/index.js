@@ -26,8 +26,8 @@ const app = {
 
     document.querySelectorAll(`
       .controls__entity-id-input,
-      .controls__open-entity-button,
       .controls__saved-item-id-input,
+      .controls__open-entity-button,
       .controls__open-saved-item-button,
       .controls__save-button
     `).forEach((control) => control.removeAttribute('disabled'));
@@ -68,8 +68,8 @@ const app = {
 
     document.querySelectorAll(`
       .controls__entity-id-input,
-      .controls__open-entity-button,
       .controls__saved-item-id-input,
+      .controls__open-entity-button,
       .controls__open-saved-item-button,
       .controls__save-button
     `).forEach((control) => control.setAttribute('disabled', 'disabled'));
