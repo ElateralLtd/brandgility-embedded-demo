@@ -1,15 +1,15 @@
+import BrandgilityEmbeddedApi from '@elateral/brandgility-embedded-api';
+
 import 'core/polyfill';
 import env from 'core/env';
 
-import ClientPostMessageAPI from './client-post-message-api';
-
 const app = {
   init() {
-    this.clientPostMessageAPI = new ClientPostMessageAPI('.brandgility-iframe');
+    const targetWindow = document.querySelector('.brandgility-iframe').contentWindow;
 
-    this.clientPostMessageAPI
-      .on('load', this.handleLoad)
-      .on('save', (id) => console.info('saved item id', id));
+    this.brandgilityEmbeddedApi = new BrandgilityEmbeddedApi(targetWindow);
+    this.brandgilityEmbeddedApi.on('load', this.handleLoad);
+    this.brandgilityEmbeddedApi.on('save', (entity) => console.info('saved item', entity));
 
     this.attachListeners();
   },
@@ -26,15 +26,15 @@ const app = {
 
     document.querySelectorAll(`
       .controls__entity-id-input,
-      .controls__open-entity-button,
       .controls__saved-item-id-input,
+      .controls__open-entity-button,
       .controls__open-saved-item-button,
       .controls__save-button
     `).forEach((control) => control.removeAttribute('disabled'));
   },
 
   handleSave() {
-    this.clientPostMessageAPI.save();
+    this.brandgilityEmbeddedApi.emit('save');
   },
 
   handleOpenTemplate() {
@@ -52,11 +52,12 @@ const app = {
   },
 
   openIframe(iframeUrl) {
+    const iframe = document.querySelector('.brandgility-iframe');
+
     this.clearInfo();
 
-    document.querySelector('.brandgility-iframe-wrapper').innerHTML=(`
-      <iframe class="brandgility-iframe" title="elateral-embedded-configure" src="${iframeUrl}"></iframe>
-    `);
+    iframe.src = iframeUrl;
+    iframe.hidden = false;
   },
 
   clearInfo() {
@@ -67,8 +68,8 @@ const app = {
 
     document.querySelectorAll(`
       .controls__entity-id-input,
-      .controls__open-entity-button,
       .controls__saved-item-id-input,
+      .controls__open-entity-button,
       .controls__open-saved-item-button,
       .controls__save-button
     `).forEach((control) => control.setAttribute('disabled', 'disabled'));
