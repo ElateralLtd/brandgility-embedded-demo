@@ -32,7 +32,7 @@
     "webpack-dotenv-plugin": "^2.1.0"
   },
   "dependencies": {
-    "@elateral/brandgility-embedded-api": "^0.1.0",
+    "@elateral/brandgility-embedded-api": "^0.1.1",
     "core-js": "^3.0.1"
   }
 }
