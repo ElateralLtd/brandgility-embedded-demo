@@ -79,15 +79,13 @@
         min-width: calc(1024px + 14px * 2);
       }
 
-      .controls {
+      .controls,
+      .controls__form {
         display: flex;
-        align-items: center;
       }
 
-      .controls__entity-id-input,
-      .controls__open-entity-button,
-      .controls__saved-item-id-input,
-      .controls__open-saved-item-button {
+      .controls__input,
+      .controls__button {
         margin-right: 10px;
         flex-shrink: 0;
       }
@@ -111,11 +109,15 @@
   <body>
     <div class="root">
       <div class="controls">
-        <input type="text" class="controls__entity-id-input" placeholder="template id">
-        <button type="button" class="controls__open-entity-button">Open Template</button>
-        <input type="text" class="controls__saved-item-id-input" placeholder="saved item id">
-        <button type="button" class="controls__open-saved-item-button">Open Saved Item</button>
-        <button type="button" class="controls__save-button">Save</button>
+        <form class="controls__form controls__form__entity-id">
+          <input type="text" class="controls__input controls__entity-id-input" placeholder="template id">
+          <button class="controls__button controls__open-entity-button">Open Template</button>
+        </form>
+        <form class="controls__form controls__form__saved-item-id">
+          <input type="text" class="controls__input controls__saved-item-id-input" placeholder="saved item id">
+          <button class="controls__button controls__open-saved-item-button">Open Saved Item</button>
+        </form>
+        <button class="controls__button controls__save-button">Save</button>
       </div>
       <div class="entity-info">
         <div>Current configuration id: <strong class="entity-info__loaded-entity-id"></strong></div>
