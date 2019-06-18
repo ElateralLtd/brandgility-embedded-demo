@@ -35,7 +35,7 @@ const app = {
 
   handleOpenTemplate(event) {
     const templateId = document.querySelector('.controls__entity-id-input').value.trim();
-    const url = `${env.brandgilityUrl}/embedded-template-configure/new/${templateId}`;
+    const url = `${env.brandgilityUrl}/embedded-template-configure/new/${templateId}?action=START_TEMPLATE_CONFIGURATION&eid=${templateId}&embedded=true`;
 
     event.preventDefault();
     this.openIframe(url);
@@ -43,7 +43,7 @@ const app = {
 
   handleOpenSavedItem(event) {
     const savedItemId = document.querySelector('.controls__saved-item-id-input').value.trim();
-    const url = `${env.brandgilityUrl}/embedded-template-configure/edit/${savedItemId}`;
+    const url = `${env.brandgilityUrl}/embedded-template-configure/edit/${savedItemId}?action=SAVED_ITEM&eid=${savedItemId}&embedded=true`;
 
     event.preventDefault();
     this.openIframe(url);
