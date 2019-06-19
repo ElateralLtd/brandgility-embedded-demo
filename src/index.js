@@ -10,6 +10,7 @@ const app = {
     this.brandgilityEmbeddedApi = new BrandgilityEmbeddedApi(targetWindow);
     this.brandgilityEmbeddedApi.on('load', this.handleLoad);
     this.brandgilityEmbeddedApi.on('save', (entity) => console.info('saved item', entity));
+    this.brandgilityEmbeddedApi.on('error', ({ message }) => console.info(`top window error handling: ${message}`));
 
     this.attachListeners();
   },
