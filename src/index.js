@@ -10,9 +10,20 @@ const app = {
     this.brandgilityEmbeddedApi = new BrandgilityEmbeddedApi(targetWindow);
     this.brandgilityEmbeddedApi.on('load', this.handleLoad);
     this.brandgilityEmbeddedApi.on('save', (entity) => console.info('saved item', entity));
-    this.brandgilityEmbeddedApi.on('error', ({ message }) => console.info(`top window error handling: ${message}`));
+    this.brandgilityEmbeddedApi.on('error', this.handleErrors.bind(this));
 
     this.attachListeners();
+  },
+
+  handleErrors({ message }) {
+    console.info(`top window error handling: ${message}`);
+
+    document.querySelector('.entity-info__loaded-entity-id').textContent = '';
+    document.querySelector('.entity-info__loaded-entity-type').textContent = '';
+    document.querySelector('.controls__entity-id-input').value = '';
+    document.querySelector('.controls__saved-item-id-input').value = '';
+
+    document.querySelectorAll('.controls__input, .controls__button').forEach((control) => control.removeAttribute('disabled'));
   },
 
   attachListeners() {
