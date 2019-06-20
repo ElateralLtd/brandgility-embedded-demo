@@ -10,13 +10,13 @@ const app = {
     this.brandgilityEmbeddedApi = new BrandgilityEmbeddedApi(targetWindow);
     this.brandgilityEmbeddedApi.on('load', this.handleLoad);
     this.brandgilityEmbeddedApi.on('save', (entity) => console.info('saved item', entity));
-    this.brandgilityEmbeddedApi.on('error', this.handleErrors.bind(this));
+    this.brandgilityEmbeddedApi.on('error', this.handleErrors);
 
     this.attachListeners();
   },
 
   handleErrors({ message }) {
-    console.info(`top window error handling: ${message}`);
+    document.querySelector('.error').textContent = message;
 
     document.querySelector('.entity-info__loaded-entity-id').textContent = '';
     document.querySelector('.entity-info__loaded-entity-type').textContent = '';
@@ -81,6 +81,7 @@ const app = {
   clearInfo() {
     document.querySelector('.entity-info__loaded-entity-id').textContent = '';
     document.querySelector('.entity-info__loaded-entity-type').textContent = '';
+    document.querySelector('.error').textContent = '';
 
     document.querySelectorAll('.controls__input, .controls__button').forEach((control) => control.setAttribute('disabled', 'disabled'));
   }
