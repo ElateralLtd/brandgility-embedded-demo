@@ -10,8 +10,20 @@ const app = {
     this.brandgilityEmbeddedApi = new BrandgilityEmbeddedApi(targetWindow);
     this.brandgilityEmbeddedApi.on('load', this.handleLoad);
     this.brandgilityEmbeddedApi.on('save', (entity) => console.info('saved item', entity));
+    this.brandgilityEmbeddedApi.on('error', this.handleErrors);
 
     this.attachListeners();
+  },
+
+  handleErrors({ message }) {
+    document.querySelector('.error').textContent = message;
+
+    document.querySelector('.entity-info__loaded-entity-id').textContent = '';
+    document.querySelector('.entity-info__loaded-entity-type').textContent = '';
+    document.querySelector('.controls__entity-id-input').value = '';
+    document.querySelector('.controls__saved-item-id-input').value = '';
+
+    document.querySelectorAll('.controls__input, .controls__button').forEach((control) => control.removeAttribute('disabled'));
   },
 
   attachListeners() {
@@ -69,6 +81,7 @@ const app = {
   clearInfo() {
     document.querySelector('.entity-info__loaded-entity-id').textContent = '';
     document.querySelector('.entity-info__loaded-entity-type').textContent = '';
+    document.querySelector('.error').textContent = '';
 
     document.querySelectorAll('.controls__input, .controls__button').forEach((control) => control.setAttribute('disabled', 'disabled'));
   }
