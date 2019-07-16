@@ -618,10 +618,10 @@
     lodash "^4.17.11"
     to-fast-properties "^2.0.0"
 
-"@elateral/brandgility-embedded-api@^0.1.1":
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/@elateral/brandgility-embedded-api/-/brandgility-embedded-api-0.1.1.tgz#43df904c5631fceb04dd4e0a623b8d6eda331213"
-  integrity sha512-InLfJ2/m3UQDyL/AzuCk9ojEYQ1k9rjv+jim6veLZ2EsYnq39E2pgFrmdg7OdaDGYMuJofP4YBl3lydpBI7EuQ==
+"@elateral/brandgility-embedded-api@^0.1.2":
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/@elateral/brandgility-embedded-api/-/brandgility-embedded-api-0.1.2.tgz#aaa5aebc90a7d062bc11f9b2d4dc12fa56bd7424"
+  integrity sha512-52xXaMrEzhgNzz+FMhCX+KrqUV5gzovx8eMkp35hxiQQlK+eoMNxkfS6TNT9U5AQMOVWFy27vlqQpfMBoL1zZg==
 
 "@types/events@*":
   version "3.0.0"
