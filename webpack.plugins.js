@@ -20,9 +20,11 @@ module.exports = (env) => {
     sample: '.env.default',
     path: '.env',
   });
-  const copyPlugin = new CopyWebpackPlugin([
-    { from: '_redirects', to: '.' },
-  ]);
+  const copyPlugin = new CopyWebpackPlugin({
+    patterns: [
+      { from: '_redirects', to: '.' },
+    ],
+  });
 
   const plugins = [
     htmlWebpackPlugin,

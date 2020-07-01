@@ -1,12 +1,15 @@
 {
   "name": "brandgility-embedded-demo",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "brandgility embedded demo",
   "repository": "https://github.com/ElateralLtd/brandgility-embedded-demo.git",
   "scripts": {
     "start": "webpack-dev-server --progress --env.development",
     "build": "webpack --env.production",
-    "deploy": "bin/package.sh"
+    "deploy": "bin/package.sh",
+    "postupdate": "bin/yarn-deduplicate.sh",
+    "prepare": "bin/yarn-deduplicate.sh",
+    "postuninstall": "bin/yarn-deduplicate.sh"
   },
   "moduleRoots": [
     "src"
@@ -16,23 +19,24 @@
     "node": ">=12.1.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.4.3",
-    "@babel/preset-env": "^7.4.3",
+    "@babel/core": "^7.10.3",
+    "@babel/preset-env": "^7.10.3",
     "azure": "^2.3.1-preview",
     "azure-storage": "^2.10.3",
-    "babel-loader": "^8.0.4",
-    "copy-webpack-plugin": "^5.0.2",
-    "dotenv": "^7.0.0",
-    "html-webpack-plugin": "^3.2.0",
+    "babel-loader": "^8.1.0",
+    "copy-webpack-plugin": "^6.0.3",
+    "dotenv": "^8.2.0",
+    "html-webpack-plugin": "^4.3.0",
     "npmlog": "^4.1.2",
-    "terser-webpack-plugin": "^1.2.2",
-    "webpack": "^4.30.0",
-    "webpack-cli": "^3.3.1",
-    "webpack-dev-server": "^3.3.1",
-    "webpack-dotenv-plugin": "^2.1.0"
+    "terser-webpack-plugin": "^1.4.4",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.0",
+    "webpack-dotenv-plugin": "^2.1.0",
+    "yarn-deduplicate": "^2.0.0"
   },
   "dependencies": {
     "@elateral/brandgility-embedded-api": "^0.1.2",
-    "core-js": "^3.0.1"
+    "core-js": "^3.4.6"
   }
 }
