@@ -17,11 +17,11 @@
   ],
   "license": "UNLICENSED",
   "engines": {
-    "node": ">=12.1.0"
+    "node": ">=14.5.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.10.3",
-    "@babel/preset-env": "^7.10.3",
+    "@babel/core": "^7.10.4",
+    "@babel/preset-env": "^7.10.4",
     "azure": "^2.3.1-preview",
     "azure-storage": "^2.10.3",
     "babel-loader": "^8.1.0",
