@@ -789,10 +789,10 @@
     lodash "^4.17.13"
     to-fast-properties "^2.0.0"
 
-"@elateral/brandgility-embedded-api@^0.1.2":
-  version "0.1.2"
-  resolved "https://registry.yarnpkg.com/@elateral/brandgility-embedded-api/-/brandgility-embedded-api-0.1.2.tgz#aaa5aebc90a7d062bc11f9b2d4dc12fa56bd7424"
-  integrity sha512-52xXaMrEzhgNzz+FMhCX+KrqUV5gzovx8eMkp35hxiQQlK+eoMNxkfS6TNT9U5AQMOVWFy27vlqQpfMBoL1zZg==
+"@elateral/brandgility-embedded-api@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@elateral/brandgility-embedded-api/-/brandgility-embedded-api-1.0.1.tgz#d8ff5aa4baedfca409cfbe4a06dc2256e12822e4"
+  integrity sha512-bPJODdHOzi8ocu1NQ8nmArCONgCKG5upKyWai+3iHq4PpAPdutnc4LpnNyCQdSSBWJJ/KUkpvZA28q5c4KKB1w==
 
 "@nodelib/fs.scandir@2.1.3":
   version "2.1.3"
