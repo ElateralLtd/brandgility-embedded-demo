@@ -37,6 +37,43 @@ jobs:
            root: .
            paths:
             - dist/*
+  vulnerabilityAudit:
+    docker:
+      - image: circleci/node:14.16.0
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - run:
+          name: Check Tools Versions
+          command: |
+            echo "jq version: $(jq --version)"
+            echo "yarn version: $(yarn --version)"
+      - run:
+          name: make audit folder
+          command: mkdir -p audit
+      - run:
+          name: Install "audit-html tools"
+          command: |
+            sudo yarn global add yarn-audit-html
+            sudo npm install -g npm-audit-html
+      - run:
+          name: Create yarn html report
+          command: |      
+            set -x; set +e; yarn audit --json | yarn-audit-html --output audit/yarn-audit.html; set -e; exit 0
+      - run:
+          name: Create audit jsons
+          command: |
+            set -x; set +e; \
+            yarn audit --json > audit/audit-results-yarn.json; \
+            echo "yarn version: $(yarn --version)" > audit/audit-summary-yarn; chmod 666 audit/audit-summary-yarn; \
+            set -e; exit 0
+      - run:
+          name: Summary collect
+          command: |
+            bin/summary-yarn.sh >> audit/audit-summary-yarn
+      - store_artifacts:
+          path: ./audit
   deploy:
     <<: *job-defaults
     steps:
@@ -56,6 +93,10 @@ workflows:
           context: org-global
           requires:
             - prepare
+      - vulnerabilityAudit:
+          context: org-global
+          requires:
+            - build
       - deploy:
           context: org-global
           requires:
