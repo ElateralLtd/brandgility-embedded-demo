@@ -73,6 +73,13 @@ jobs:
             bin/summary-yarn.sh >> audit/audit-summary-yarn
       - store_artifacts:
           path: ./audit
+      - run:
+          name: Vulnerability Gate
+          command: |
+            set -e; \
+            critical=$(grep '"type":"auditSummary"' audit/audit-results-yarn.json | jq '.data.vulnerabilities.critical'); \
+            if [ $critical -gt 0 ]; then echo "$critical Critical Vulnerabilities Found"; exit 1; \
+            else echo "There Are No Critical Vulnerabilities Found."; exit 0; fi
   deploy:
     <<: *job-defaults
     steps:
