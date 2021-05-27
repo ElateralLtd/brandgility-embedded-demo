@@ -56,16 +56,15 @@ jobs:
           name: Install "audit-html tools"
           command: |
             sudo yarn global add yarn-audit-html
-            sudo npm install -g npm-audit-html
       - run:
           name: Create yarn html report
           command: |      
-            set -x; set +e; yarn audit --json | yarn-audit-html --output audit/yarn-audit.html; set -e; exit 0
+            set -x; set +e; yarn audit --json --groups dependencies | yarn-audit-html --output audit/yarn-audit.html; set -e; exit 0
       - run:
           name: Create audit jsons
           command: |
             set -x; set +e; \
-            yarn audit --json > audit/audit-results-yarn.json; \
+            yarn audit --json --groups dependencies > audit/audit-results-yarn.json; \
             echo "yarn version: $(yarn --version)" > audit/audit-summary-yarn; chmod 666 audit/audit-summary-yarn; \
             set -e; exit 0
       - run:
