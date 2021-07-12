@@ -37,6 +37,49 @@ jobs:
            root: .
            paths:
             - dist/*
+  vulnerabilityAudit:
+    docker:
+      - image: circleci/node:14.16.0
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - run:
+          name: Check Tools Versions
+          command: |
+            echo "jq version: $(jq --version)"
+            echo "yarn version: $(yarn --version)"
+      - run:
+          name: make audit folder
+          command: mkdir -p audit
+      - run:
+          name: Install "audit-html tools"
+          command: |
+            sudo yarn global add yarn-audit-html
+      - run:
+          name: Create yarn html report
+          command: |      
+            set -x; set +e; yarn audit --json --groups dependencies | yarn-audit-html --output audit/yarn-audit.html; set -e; exit 0
+      - run:
+          name: Create audit jsons
+          command: |
+            set -x; set +e; \
+            yarn audit --json --groups dependencies > audit/audit-results-yarn.json; \
+            echo "yarn version: $(yarn --version)" > audit/audit-summary-yarn; chmod 666 audit/audit-summary-yarn; \
+            set -e; exit 0
+      - run:
+          name: Summary collect
+          command: |
+            bin/summary-yarn.sh >> audit/audit-summary-yarn
+      - store_artifacts:
+          path: ./audit
+      - run:
+          name: Vulnerability Gate
+          command: |
+            set -e; \
+            critical=$(grep '"type":"auditSummary"' audit/audit-results-yarn.json | jq '.data.vulnerabilities.critical'); \
+            if [ $critical -gt 0 ]; then echo "$critical Critical Vulnerabilities Found"; exit 1; \
+            else echo "There Are No Critical Vulnerabilities Found."; exit 0; fi
   deploy:
     <<: *job-defaults
     steps:
@@ -56,6 +99,10 @@ workflows:
           context: org-global
           requires:
             - prepare
+      - vulnerabilityAudit:
+          context: org-global
+          requires:
+            - build
       - deploy:
           context: org-global
           requires:
