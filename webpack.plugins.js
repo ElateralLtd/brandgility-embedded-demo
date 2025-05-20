@@ -23,6 +23,7 @@ module.exports = (env) => {
   const copyPlugin = new CopyWebpackPlugin({
     patterns: [
       { from: '_redirects', to: '.' },
+      { from: 'robots.txt', to: '.' },
     ],
   });
 
