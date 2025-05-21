@@ -2,6 +2,11 @@
 # This tool requies Azure CLI 2.0 be be installed on the host
 # https://docs.microsoft.com/en-gb/cli/azure/install-azure-cli
 
+export AZURE_STORAGE_ACCOUNT=elatuse1iodeploypkgs
+export AZURE_STORAGE_ACCESS_KEY=${AZURE_DEPLOY_PACKAGE_KEY}
+export AZURE_CONTAINER_PACKAGES=deploypackages
+export AZURE_CONTAINER_ENVIRONMENTS=environments
+
 # DON'T USE THIS OPTION UNLESS TESTING
 while getopts b: option
 do
@@ -10,6 +15,13 @@ do
       b) CIRCLE_BUILD_NUM=${OPTARG};;
     esac
 done
+
+trim () {
+  local var="$*"
+  var="${var#"${var%%[![:space:]]*}"}"
+  var="${var%"${var##*[![:space:]]}"}"
+  printf '%s' "$var"
+}
 
 containsElement () {
   local e
