@@ -1,4 +1,4 @@
-const azureStorage = require('azure-storage');
+const { BlobServiceClient, StorageSharedKeyCredential } = require('@azure/storage-blob');
 const path = require('path');
 const Logger = require('./logger');
 
@@ -6,24 +6,29 @@ const log = new Logger('azure');
 const azureAccount = process.env.AZURE_STORAGE_ACCOUNT;
 const azureKey = process.env.AZURE_STORAGE_ACCESS_KEY;
 const azureContainerPackages = process.env.AZURE_CONTAINER_PACKAGES;
-const azureContainerEnvironments = process.env.AZURE_CONTAINER_ENVIRONMENTS;
-const blobService = azureStorage.createBlobService(azureAccount, azureKey);
+const storageSharedKeyCredential = new StorageSharedKeyCredential(azureAccount, azureKey);
+const storageBlobServiceUrl = `https://${azureAccount}.blob.core.windows.net`;
+const blobServiceClient = new BlobServiceClient(storageBlobServiceUrl, storageSharedKeyCredential);
+const containerClient = blobServiceClient.getContainerClient(azureContainerPackages);
 
-module.exports.upload = (fileName, moduleName, leaseId) => (
-  new Promise((resolve, reject) => {
-    const options = {};
+module.exports.upload = async (filePath, moduleName, isTagged) => {
+  const shouldManipulateTags = isTagged === 'true';
 
-    if (leaseId) {
-      options.leaseId = leaseId;
+  try {
+    const fileName = path.basename(filePath);
+    const blockBlobClient = containerClient.getBlockBlobClient(`./${moduleName}/${fileName}`);
+
+    if (shouldManipulateTags) {
+      await removeLatestTag();
+      await blockBlobClient.uploadFile(filePath, { tags: { latest: true } });
+    } else {
+      await blockBlobClient.uploadFile(filePath);
     }
-    const azureContainer = leaseId ? azureContainerEnvironments : azureContainerPackages;
-    blobService.createBlockBlobFromLocalFile(azureContainer,
-      `./${moduleName}/${path.basename(fileName)}`, `${fileName}`, options, (err) => {
-        if (err) {
-          log.error(err);
-          reject(err);
-        }
-        resolve(fileName);
-      });
-  })
-);
+
+    return filePath;
+  } catch (error) {
+    log.error(error);
+
+    return Promise.reject(error);
+  }
+};

@@ -7,8 +7,11 @@ const getPlugins = require('./webpack.plugins');
 const getResolve = require('./webpack.resolve');
 const getDevServer = require('./webpack.dev-server');
 
-dotenv.config();
+const dotenvConfig = dotenv.config();
 
+if (dotenvConfig.error) {
+  dotenv.config({ path: path.resolve(process.cwd(), '.env.default') });
+}
 // suppress deprecation warnings from DotenvPlugin
 // https://github.com/tomchentw/unused-files-webpack-plugin/issues/22
 process.noDeprecation = true;
@@ -40,16 +43,14 @@ module.exports = (env) => ({
   devtool: env.development && 'inline-source-map',
   watchOptions: {
     aggregateTimeout: 100,
-    ignored: /node_modules/,
   },
   performance: {
     hints: false,
   },
   stats: {
     chunks: false,
-    maxModules: 0,
-    children: false,
     hash: false,
     version: false,
+    errorDetails: true,
   },
 });

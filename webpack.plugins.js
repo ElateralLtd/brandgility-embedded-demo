@@ -16,13 +16,16 @@ module.exports = (env) => {
       removeStyleLinkTypeAttributes: true,
     } : false,
   });
+
   const dotenvPlugin = new DotenvPlugin({
     sample: '.env.default',
     path: '.env',
   });
+
   const copyPlugin = new CopyWebpackPlugin({
     patterns: [
       { from: '_redirects', to: '.' },
+      { from: 'robots.txt', to: '.' },
     ],
   });
 
